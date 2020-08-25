@@ -179,7 +179,7 @@ body {
 	transition: var(--mainTransition);
 	background: rgb(240, 157, 81, 0.5);
 	z-index: 2;
-	visibility: hidden;
+	visibility: hidden;s
 }
 .cart {
 	position: fixed;
@@ -197,6 +197,7 @@ body {
 .showCart {
 	transform: translateX(0);
 }
+/* This class gets added when closing and opening cart... */
 .transparentBcg {
 	visibility: visible;
 }
