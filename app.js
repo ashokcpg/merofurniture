@@ -35,16 +35,56 @@ class Products {
 }
 
 // Display Products...
+class UI {
+	displayProducts(products) {
+		console.log(products);
+		let result = "";
 
-class UI {}
+		products.forEach((product) => {
+			result += `
+			<!-- Single Product -->
+			<article class="product">
+					<div class="img-container">
+						<img src=${product.image} alt="" class="product-img" />
+						<button class="bag-btn" data-id=${product.id}>
+							<i class="fas fa-shopping-cart"></i>
+							Add to Cart
+						</button>
+					</div>
+					<h3>${product.title}</h3>
+					<h4>$${product.price}</h4>
+				</article>`;
+		});
+		productsDOM.innerHTML = result;
+	}
 
-// Local Storage
-class Storage {}
+	// Getting Buttons Back...
+	getBagButtons() {
+		// Turning the result into array not into nodelist...
+		const buttons = [...document.querySelectorAll(".bag-btn")];
+	}
+}
+
+// Using Local Storage
+class Storage {
+	static saveProducts(products) {
+		localStorage.setItem("products", JSON.stringify(products));
+	}
+}
 
 document.addEventListener("DOMContentLoaded", () => {
 	const ui = new UI();
 	const products = new Products();
 
 	// GET all products...
-	products.getProducts().then((data) => console.log(data));
+	products
+		.getProducts()
+		.then((products) => {
+			ui.displayProducts(products);
+			Storage.saveProducts(products);
+		})
+		.then(() => {
+			ui.getBagButtons();
+		});
+	// Sends the products to UI class...
 });
