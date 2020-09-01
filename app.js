@@ -12,6 +12,9 @@ const productsDOM = document.querySelector(".products-center");
 // Cart items
 let cart = [];
 
+// Buttons
+let buttonsDOM = [];
+
 // Class responsible for getting the products...
 class Products {
 	async getProducts() {
@@ -62,13 +65,58 @@ class UI {
 	getBagButtons() {
 		// Turning the result into array not into nodelist...
 		const buttons = [...document.querySelectorAll(".bag-btn")];
+		buttonsDOM = buttons;
+		// console.log(buttons);
+		// Looping over the buttons to get dataset id...
+
+		buttons.forEach((button) => {
+			let id = button.dataset.id;
+			// console.log(id);
+			// Checking if the product is already is in cart or not..
+
+			let inCart = cart.find((item) => item.id === id);
+			if (inCart) {
+				button.innerText = "In Cart Already";
+				button.disable = true;
+			}
+			button.addEventListener("click", (event) => {
+				// console.log(event);
+				event.target.innerText = "In Cart";
+				event.target.disable = true;
+				// Get the item from local storage...
+				let cartItem = { ...lStorage.getProduct(id), amount: 1 };
+				// console.log(cartItem);
+
+				// Add product to the cart...
+
+				cart = [...cart, cartItem];
+				console.log(cart);
+
+				// Save Cart information in Local Storage...
+
+				lStorage.saveCart(cart);
+
+				// Set Cart Values...
+				this.setCartValues(cart);
+				// Display Cart Items...
+				// Show The Cart on adding the item...
+			});
+		});
 	}
 }
 
 // Using Local Storage
-class Storage {
+class lStorage {
 	static saveProducts(products) {
 		localStorage.setItem("products", JSON.stringify(products));
+	}
+	static getProduct(id) {
+		let products = JSON.parse(localStorage.getItem("products"));
+		// console.log(id);
+		return products.find((product) => product.id === id);
+	}
+	static saveCart(cart) {
+		localStorage.setItem("cart", JSON.stringify(cart));
 	}
 }
 
@@ -81,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		.getProducts()
 		.then((products) => {
 			ui.displayProducts(products);
-			Storage.saveProducts(products);
+			lStorage.saveProducts(products);
 		})
 		.then(() => {
 			ui.getBagButtons();
