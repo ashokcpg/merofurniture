@@ -137,7 +137,18 @@ class UI {
 	}
 
 	setupApp() {
-		cart = 
+		cart = lStorage.getCart();
+		this.setCartValues(cart);
+		this.populateCart(cart);
+		cartBtn.addEventListener("click", this.showCart);
+		closeCart.addEventListener("click");
+	}
+	populateCart(cart) {
+		cart.forEach((item) => this.addCartItem(item));
+	}
+	hideCart() {
+		cartOverlay.classList.remove("transparentBcg");
+		cartDOM.classList.remove("showCart");
 	}
 }
 
@@ -148,14 +159,15 @@ class lStorage {
 	}
 	static getProduct(id) {
 		let products = JSON.parse(localStorage.getItem("products"));
-		// console.log(id);
 		return products.find((product) => product.id === id);
 	}
 	static saveCart(cart) {
 		localStorage.setItem("cart", JSON.stringify(cart));
 	}
-	static getcart(){
-		return localStorage.getItem('cart') ?JSON.parse(localStorage.getItem('')):[];
+	static getCart() {
+		return localStorage.getItem("cart")
+			? JSON.parse(localStorage.getItem(""))
+			: [];
 	}
 }
 
