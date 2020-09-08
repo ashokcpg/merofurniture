@@ -62,7 +62,7 @@ class UI {
 			<!-- Single Product -->
 			<article class="product">
 					<div class="img-container">
-						<img src=${product.image} alt="" class="product-img" />
+						<img src=${product.image} alt="" class="product-img prod-img" />
 						<button class="bag-btn" data-id=${product.id}>
 							<i class="fas fa-shopping-cart"></i>
 							Add to Cart
@@ -128,7 +128,7 @@ class UI {
 	addCartItem(item) {
 		const div = document.createElement("div");
 		div.classList.add("cart-item");
-		div.innerHTML = `<img src=${item.image} alt="product" />
+		div.innerHTML = `<img src=${item.image} alt="product" class="prod-img" />
 						<div>
 							<h4>${item.title}</h4>
 							<h5>$${item.price}</h5>

@@ -18,6 +18,11 @@ body {
 	background: var(--mainWhite);
 	font-family: "Lato", sans-serif;
 }
+.prod-img {
+	height: 300px;
+	width: 600px;
+	object-fit: cover;
+}
 
 /* --------------- Navbar ---------------- */
 .navbar {
