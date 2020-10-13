@@ -4,7 +4,7 @@ Mero Furniture is a ecommerce prototype that is built using HTML, CSS, JavaScrip
 
 ## ScreenShot
 
-![MeroFurniture HomePage](./screenshots/1.png?raw=true "HomePage")
+![MeroFurniture HomePage](./screenshots/1.jpg?raw=true "HomePage")
 
 # Home
 
